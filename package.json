@@ -1,7 +1,7 @@
 {
   "name": "com.ironcarpstudios.aes",
   "version": "1.0.0",
-  "displayName": "Agent Event System",
+  "displayName": "IronCarpStudios.AgentEventSystem",
   "description": "A simple eventing system using C# delegates.",
   "unity": "2021.1",
   "keywords": [
@@ -14,6 +14,6 @@
   ],
   "author": {
     "name": "Iron Carp Studios",
-    "url": "https://github.com/norlo1229/agent-event-system/tree/development/AgentEventSystem"
+    "url": "https://github.com/iron-carp-studios/agent-event-system"
   }
 }
