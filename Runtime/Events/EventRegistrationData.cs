@@ -1,14 +1,15 @@
-﻿using System;
+﻿using IronCarp.AES.Agents;
+using System;
 
 namespace IronCarp.AES.Events
 {
     public class EventRegistrationData
     {
         public readonly string EventType;
-        public Action<EventParameter> Action;
+        public Action<Agent, AgentEventArgs> Action;
         public EventQueuePriority Priority;
 
-        public EventRegistrationData(string eventType, Action<EventParameter> action, EventQueuePriority priority = EventQueuePriority.Normal)
+        public EventRegistrationData(string eventType, Action<Agent, AgentEventArgs> action, EventQueuePriority priority = EventQueuePriority.Normal)
         {
             EventType = eventType;
             Action = action;

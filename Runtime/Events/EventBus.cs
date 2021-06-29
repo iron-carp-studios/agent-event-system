@@ -1,15 +1,16 @@
-﻿using System;
+﻿using IronCarp.AES.Agents;
+using System;
 using System.Collections.Generic;
 
 namespace IronCarp.AES.Events
 {
     public class EventBus
     {
-        private readonly Dictionary<string, Action<EventParameter>> eventList;
+        private readonly Dictionary<string, Action<Agent, AgentEventArgs>> eventList;
 
         public EventBus()
         {
-            eventList = new Dictionary<string, Action<EventParameter>>();
+            eventList = new Dictionary<string, Action<Agent, AgentEventArgs>>();
         }
 
         public void RegisterEvent(EventRegistrationData eventData)
@@ -28,7 +29,7 @@ namespace IronCarp.AES.Events
 
         public bool TryRemoveEvent(EventRegistrationData eventData)
         {
-            Action<EventParameter> action;
+            Action<Agent, AgentEventArgs> action;
             if (eventList.TryGetValue(eventData.EventType, out action))
             {
                 if(action != null)
@@ -41,12 +42,12 @@ namespace IronCarp.AES.Events
             return false;
         }
 
-        public void BroadcastEvent(string eventType, EventParameter parameters)
+        public void BroadcastEvent(string eventType, Agent sender, AgentEventArgs parameters)
         {
-            Action<EventParameter> action;
+            Action<Agent, AgentEventArgs> action;
             if (eventList.TryGetValue(eventType.ToLower(), out action))
             {
-                action.Invoke(parameters);
+                action.Invoke(sender, parameters);
             }
         }
     }

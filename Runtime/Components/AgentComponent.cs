@@ -8,16 +8,22 @@ namespace IronCarp.AES.Agents
         protected Agent agent;
         protected EventQueuePriority Priority;
 
-
         public virtual void Awake()
         {
-            agent = GetComponent<Agent>();
+            //disable the component here and let the agent start them once it is initialized.
             this.enabled = false;
             Priority = EventQueuePriority.Normal;
         }
 
         public virtual void OnEnable()
         {
+            agent = GetComponent<Agent>();
+
+            if(agent == null)
+            {
+                this.enabled = false;
+            }
+
             Subscribe();
         }
 
@@ -27,6 +33,8 @@ namespace IronCarp.AES.Agents
             {
                 Unsubscribe();
             }
+
+            agent = null;
         }
 
         protected virtual void Subscribe() { }

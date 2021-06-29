@@ -16,11 +16,11 @@ namespace IronCarp.AES.Agents
             AgentId = new Guid();
             Components = new List<AgentComponent>();
             events = new List<EventBus>()
-        {
-            new EventBus(),
-            new EventBus(),
-            new EventBus()
-        };
+            {
+                new EventBus(),
+                new EventBus(),
+                new EventBus()
+            };
         }
 
         public void Start()
@@ -75,11 +75,11 @@ namespace IronCarp.AES.Agents
             }
         }
 
-        public void Broadcast(string eventType, EventParameter parameters)
+        public void Broadcast(string eventType, AgentEventArgs parameters)
         {
             for(int i = 0; i < events.Count; i++)
             {
-                events[i].BroadcastEvent(eventType, parameters);
+                events[i].BroadcastEvent(eventType, this, parameters);
             }
         }
 
