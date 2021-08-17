@@ -19,14 +19,6 @@ namespace IronCarpStudios.AES.Agents
             var statComponents = GetComponents<AgentStatComponent>();
             Stats = new Dictionary<string, AgentStatComponent>();
 
-            foreach (AgentStatComponent stat in statComponents)
-            {
-                if (!Stats.ContainsKey(stat.StatName))
-                {
-                    Stats.Add(stat.StatName, stat);
-                }
-            }
-
             events = new List<EventBus>()
             {
                 new EventBus(),
