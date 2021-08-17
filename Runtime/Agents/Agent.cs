@@ -1,13 +1,14 @@
-using IronCarp.AES.Events;
+using IronCarpStudios.AES.Events;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace IronCarp.AES.Agents
+namespace IronCarpStudios.AES.Agents
 {
     public class Agent : MonoBehaviour
     {
         public Guid AgentId;
+        protected Dictionary<string, AgentStatComponent> Stats { get; private set; }
         private List<AgentComponent> Components;
         private List<EventBus> events;
 
@@ -15,6 +16,17 @@ namespace IronCarp.AES.Agents
         {
             AgentId = new Guid();
             Components = new List<AgentComponent>();
+            var statComponents = GetComponents<AgentStatComponent>();
+            Stats = new Dictionary<string, AgentStatComponent>();
+
+            foreach (AgentStatComponent stat in statComponents)
+            {
+                if (!Stats.ContainsKey(stat.StatName))
+                {
+                    Stats.Add(stat.StatName, stat);
+                }
+            }
+
             events = new List<EventBus>()
             {
                 new EventBus(),
@@ -34,6 +46,16 @@ namespace IronCarp.AES.Agents
             }
         }
 
+        public virtual void OnEnable()
+        {
+            AgentCache.TryAddAgent(gameObject.GetInstanceID(), this);
+        }
+
+        public virtual void OnDisable()
+        {
+            AgentCache.RemoveAgent(gameObject.GetInstanceID());
+        }
+
         public void AddComponent<T>() where T : AgentComponent
         {
             var component = gameObject.AddComponent<T>();
@@ -41,6 +63,14 @@ namespace IronCarp.AES.Agents
             Components.Add(component);
         }
 
+        public bool TryGetStat(string key, out AgentStatComponent stat)
+        {
+            return Stats.TryGetValue(key, out stat);
+        }
+        public void AddListener(string eventKey, Action<Agent, AgentEventArgs> action)
+        {
+            AddListener(new EventRegistrationData(eventKey, action));
+        }
         public void AddListener(EventRegistrationData eventData)
         {
             if (events == null)
@@ -60,6 +90,11 @@ namespace IronCarp.AES.Agents
                     events[2].RegisterEvent(eventData);
                     break;
             }
+        }
+
+        public void RemoveListener(string eventType, Action<Agent, AgentEventArgs> action)
+        {
+            RemoveListener(new EventRegistrationData(eventType, action));
         }
 
         public void RemoveListener(EventRegistrationData eventData)

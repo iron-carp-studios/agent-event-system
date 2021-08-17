@@ -1,8 +1,8 @@
-﻿using IronCarp.AES.Agents;
+﻿using IronCarpStudios.AES.Agents;
 using System;
 using System.Collections.Generic;
 
-namespace IronCarp.AES.Events
+namespace IronCarpStudios.AES.Events
 {
     public class EventBus
     {

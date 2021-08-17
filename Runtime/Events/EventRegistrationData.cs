@@ -1,7 +1,7 @@
-﻿using IronCarp.AES.Agents;
+﻿using IronCarpStudios.AES.Agents;
 using System;
 
-namespace IronCarp.AES.Events
+namespace IronCarpStudios.AES.Events
 {
     public class EventRegistrationData
     {

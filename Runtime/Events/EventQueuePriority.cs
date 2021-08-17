@@ -1,4 +1,4 @@
-﻿namespace IronCarp.AES.Events
+﻿namespace IronCarpStudios.AES.Events
 {
     public enum EventQueuePriority
     {

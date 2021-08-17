@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace IronCarp.AES.Events
+namespace IronCarpStudios.AES.Events
 {
     public class EventManager : MonoBehaviour
     {

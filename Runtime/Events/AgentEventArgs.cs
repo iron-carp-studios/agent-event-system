@@ -1,7 +1,7 @@
-﻿using IronCarp.AES.Agents;
+﻿using IronCarpStudios.AES.Agents;
 using System;
 
-namespace IronCarp.AES.Events
+namespace IronCarpStudios.AES.Events
 {
     public delegate void AgentEventHandler(Agent sender, AgentEventArgs args);
 

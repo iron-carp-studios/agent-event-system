@@ -1,8 +1,9 @@
-using IronCarp.AES.Events;
+using IronCarpStudios.AES.Events;
 using UnityEngine;
 
-namespace IronCarp.AES.Agents
+namespace IronCarpStudios.AES.Agents
 {
+    [RequireComponent(typeof(Agent))]
     public abstract class AgentComponent : MonoBehaviour
     {
         protected Agent agent;
@@ -39,5 +40,10 @@ namespace IronCarp.AES.Agents
 
         protected virtual void Subscribe() { }
         protected virtual void Unsubscribe() { }
+
+        public void Broadcast(string eventName, AgentEventArgs args)
+        {
+            agent.Broadcast(eventName, args);
+        }
     }
 }
